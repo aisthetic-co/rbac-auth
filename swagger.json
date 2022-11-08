@@ -1,0 +1,46 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "rbacAuth",
+    "description": "Description",
+    "version": "0.0.1"
+  },
+  "paths": {
+    "/api/auth/signup": {
+        "post": {
+          "description": "User Signup",
+          "responses": {
+            "200": {
+              "description": "Signup of Users",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "username": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "password": {
+                          "type": "string"
+                        }
+                      },
+                      "example": {
+                        "username":"jishnu",
+                        "email":"jishnu@gmail.com",
+                        "password":"123456"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+  }
+}

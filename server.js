@@ -3,6 +3,10 @@ const cors = require("cors");
 const dbConfig = require("./app/config/db.config");
 
 const app = express();
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 var corsOptions = {
   origin: "http://localhost:8081",
