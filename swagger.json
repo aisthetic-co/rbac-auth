@@ -6,6 +6,40 @@
     "version": "0.0.1"
   },
   "paths": {
+    "/login": {
+      "get": {
+        "tags": ["UserInterface"],
+        "description": "Login Page",
+        "summary": "Used to test Social Logins and Logins",
+        "responses": {
+          "200": {
+            "description": "Signin of Users - Google and Facebook authentication",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "email": {
+                        "type": "string"
+                      },
+                      "password": {
+                        "type": "string"
+                      }
+                    },
+                    "example": {
+                      "email": "jishnu@gmail.com",
+                      "password": "123456"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/auth/signup": {
       "post": {
         "tags": ["Authentication"],
@@ -21,9 +55,6 @@
                   "items": {
                     "type": "object",
                     "properties": {
-                      "username": {
-                        "type": "string"
-                      },
                       "email": {
                         "type": "string"
                       },
@@ -32,9 +63,38 @@
                       }
                     },
                     "example": {
-                      "username": "jishnu",
                       "email": "jishnu@gmail.com",
                       "password": "123456"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/refreshToken": {
+      "post": {
+        "tags": ["Authentication"],
+        "description": "Refresh token",
+        "summary": "Verification and creating new access token with given Refresh Token",
+        "responses": {
+          "200": {
+            "description": "Refresh token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "refreshToken": {
+                        "type": "string"
+                      }
+                    },
+                    "example": {
+                      "refreshToken": "6763c32a-0472-4f6c-98f4-d986f94fcb6a"
                     }
                   }
                 }
@@ -58,7 +118,7 @@
                   "items": {
                     "type": "object",
                     "properties": {
-                      "username": {
+                      "email": {
                         "type": "string"
                       },
                       "password": {
@@ -102,6 +162,368 @@
                       "username": "jishnu",
                       "password": "123456"
                     }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/addRole": {
+      "post": {
+        "description": "Super Admin Creating Roles",
+        "summary": "Creating Roles",
+        "tags": ["SuperAdmin Authentication"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "x-access-token",
+            "description": "access token obtained while signin",
+            "required": "true",
+            "schema": {
+              "type": "string"
+            },
+            "example": {
+              "x-access-token": "6763c32a-0472-4f6c-98f4-d986f94fcb6a"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Creating new Roles with Array of permission like  Read/ Write/ Update Permission of a resource assigned to a Role Name. For Eg: Permission:ResourceName",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "email": {
+                        "type": "string"
+                      },
+                      "permissions": {
+                        "type": "Array"
+                      }
+                    },
+                    "example": {
+                      "name": "Admin",
+                      "permissions": ["read:test"]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/addResource": {
+      "post": {
+        "description": "Super Admin Adding Resource and Permissions Required to Access the Resource",
+        "summary": "Adding Resource with permissions Required",
+        "tags": ["SuperAdmin Authentication"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "x-access-token",
+            "description": "access token obtained while signin",
+            "required": "true",
+            "schema": {
+              "type": "string"
+            },
+            "example": {
+              "x-access-token": "6763c32a-0472-4f6c-98f4-d986f94fcb6a"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "path": {
+                        "type": "string"
+                      },
+                      "method": {
+                        "type": "string"
+                      },
+                      "permissionsRequired": {
+                        "type": "Array"
+                      }
+                    },
+                    "example": {
+                      "name": "resourcename",
+                      "path": "api/resourcename",
+                      "method": "get",
+                      "permissionsRequired": ["read:resourcename"]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/addRoleToUser": {
+      "post": {
+        "description": "Super Admin Add Roles to user",
+        "summary": "Assinging Role to users",
+        "tags": ["SuperAdmin Authentication"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "x-access-token",
+            "description": "access token obtained while signin",
+            "required": "true",
+            "schema": {
+              "type": "string"
+            },
+            "example": {
+              "x-access-token": "6763c32a-0472-4f6c-98f4-d986f94fcb6a"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Adding Role to Existing Users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "email": {
+                        "type": "string"
+                      },
+                      "roleName": {
+                        "type": "string"
+                      }
+                    },
+                    "example": {
+                      "email": "sis5607xs809@gmail.com",
+                      "roleName": "user"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/updateUser": {
+      "post": {
+        "description": "Super Admin Change User Password or Email",
+        "summary": "Update User",
+        "tags": ["SuperAdmin Authentication"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "x-access-token",
+            "description": "access token obtained while signin",
+            "required": "true",
+            "schema": {
+              "type": "string"
+            },
+            "example": {
+              "x-access-token": "6763c32a-0472-4f6c-98f4-d986f94fcb6a"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Updating user Email or password",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "email": {
+                        "type": "string"
+                      },
+                      "newEmail": {
+                        "type": "string"
+                      },
+                      "password": {
+                        "type": "string"
+                      }
+                    },
+                    "example": {
+                      "email": "user@gmail.com",
+                      "newEmail": "user1@gmail.com",
+                      "password": "123456"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/deleteUser": {
+      "post": {
+        "description": "Super Admin Delete User",
+        "summary": "Delete user",
+        "tags": ["SuperAdmin Authentication"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "x-access-token",
+            "description": "access token obtained while signin",
+            "required": "true",
+            "schema": {
+              "type": "string"
+            },
+            "example": {
+              "x-access-token": "6763c32a-0472-4f6c-98f4-d986f94fcb6a"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deleting user with given email",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "email": {
+                        "type": "string"
+                      }
+                    },
+                    "example": {
+                      "email": "user@gmail.com"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/test/all": {
+      "get": {
+        "description": "",
+        "summary": "Public Resource",
+        "tags": ["Resources"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "x-access-token",
+            "description": "access token obtained while signin",
+            "required": "true",
+            "schema": {
+              "type": "string"
+            },
+            "example": {
+              "x-access-token": "6763c32a-0472-4f6c-98f4-d986f94fcb6a"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {},
+                    "example": {}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/test/user": {
+      "get": {
+        "description": "",
+        "summary": "User Resource",
+        "tags": ["Resources"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "x-access-token",
+            "description": "access token obtained while signin",
+            "required": "true",
+            "schema": {
+              "type": "string"
+            },
+            "example": {
+              "x-access-token": "6763c32a-0472-4f6c-98f4-d986f94fcb6a"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {},
+                    "example": {}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/test/admin": {
+      "get": {
+        "description": "",
+        "summary": "Admin Resource",
+        "tags": ["Resources"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "x-access-token",
+            "description": "access token obtained while signin",
+            "required": "true",
+            "schema": {
+              "type": "string"
+            },
+            "example": {
+              "x-access-token": "6763c32a-0472-4f6c-98f4-d986f94fcb6a"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {},
+                    "example": {}
                   }
                 }
               }

@@ -11,10 +11,10 @@ module.exports = function(app) {
   });
 
   app.post("/api/admin/signin", controller.signin);
-  app.get("/api/admin/addRole", [authJwt.verifyToken,authJwt.checkSuperAdminAccess], controller.addRole);
-  app.get("/api/admin/addPermissionToUser", [authJwt.verifyToken,authJwt.checkSuperAdminAccess], controller.addPermissionToUser);
-  app.get("/api/admin/addResource", [authJwt.verifyToken,authJwt.checkSuperAdminAccess], controller.addResource);
-  app.get("/api/admin/addUser", [authJwt.verifyToken,authJwt.checkSuperAdminAccess], authcontroller.signup);
-  app.get("/api/admin/deleteUser", [authJwt.verifyToken,authJwt.checkSuperAdminAccess], controller.deleteUser);
-  app.get("/api/admin/updateUser", [authJwt.verifyToken,authJwt.checkSuperAdminAccess], controller.updateUser);
+  app.post("/api/admin/addRole", [authJwt.verifyToken,authJwt.checkSuperAdminAccess], controller.addRole);
+  app.post("/api/admin/addRoleToUser", [authJwt.verifyToken,authJwt.checkSuperAdminAccess], controller.addRoleToUser);
+  app.post("/api/admin/addResource", [authJwt.verifyToken,authJwt.checkSuperAdminAccess], controller.addResource);
+  app.post("/api/admin/addUser", [authJwt.verifyToken,authJwt.checkSuperAdminAccess], authcontroller.signup);
+  app.post("/api/admin/deleteUser", [authJwt.verifyToken,authJwt.checkSuperAdminAccess], controller.deleteUser);
+  app.post("/api/admin/updateUser", [authJwt.verifyToken,authJwt.checkSuperAdminAccess], controller.updateUser);
 };

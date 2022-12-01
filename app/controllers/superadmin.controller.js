@@ -99,12 +99,12 @@ exports.deleteUser = (req, res) => {
     }
     res.status(200).send({
       status: "success",
-      message: "Deleted User: username: " + req.body.email,
+      message: "Deleted User: email: " + req.body.email,
     });
   });
 };
 
-exports.addPermissionToUser = (req, res) => {
+exports.addRoleToUser = (req, res) => {
   User.findOne({ email: req.body.email }, (err, user) => {
     if (err) {
       res.status(400).send({ message: err });
