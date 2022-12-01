@@ -9,5 +9,6 @@ db.user = require("./user.model");
 db.role = require("./role.model");
 db.userRoles = require("./userRoles.model");
 db.resource = require("./resource.model");
-db.ROLES = ["admin","user"]
+db.refreshToken = require("./refreshToken.model");
+db.failedLoginAttempt = require("./failedLoginAttempt.model");
 module.exports = db;

@@ -72,7 +72,7 @@ exports.addResource = (req, res) => {
 
 exports.updateUser = (req, res) => {
   User.findOneAndUpdate(
-    { username: req.body.username },
+    { email: req.body.email },
     {
       email: req.body.newEmail,
       password: bcrypt.hashSync(req.body.newPassword, 8),
@@ -92,26 +92,26 @@ exports.updateUser = (req, res) => {
 };
 
 exports.deleteUser = (req, res) => {
-  User.findOneAndDelete({ username: req.body.username }, (err, post) => {
+  User.findOneAndDelete({ email: req.body.email }, (err, post) => {
     if (err) {
       res.status(400).send({ message: err });
       return;
     }
     res.status(200).send({
       status: "success",
-      message: "Deleted User: username: " + req.body.username,
+      message: "Deleted User: username: " + req.body.email,
     });
   });
 };
 
 exports.addPermissionToUser = (req, res) => {
-  User.findOne({ username: req.body.username }, (err, user) => {
+  User.findOne({ email: req.body.email }, (err, user) => {
     if (err) {
       res.status(400).send({ message: err });
       return;
     }
     if (!user) {
-      res.status(400).send({ message: "No user with username" });
+      res.status(400).send({ message: "No user with useremail" });
       return;
     }
     Role.findOne({ name: req.body.roleName }, (err, role) => {
@@ -137,7 +137,7 @@ exports.addPermissionToUser = (req, res) => {
             message:
               "Added Role: " +
               req.body.roleName +
-              " to the username: req.body.username",
+              " to the user: "+req.body.email,
           });
         }
       );

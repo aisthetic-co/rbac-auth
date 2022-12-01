@@ -11,8 +11,6 @@ const User = mongoose.model(
     },
     username: {
       type: String,
-      required:true,
-      unique:true,
     },
     email: {
       type: String,
@@ -24,7 +22,10 @@ const User = mongoose.model(
     },
     password: {
       type: String,
-      required:true,
+    },
+    directLoginAccess: {
+      type: Boolean,
+      default: true
     },
   })
 );

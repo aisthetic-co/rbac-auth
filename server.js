@@ -1,12 +1,11 @@
 const express = require("express");
+const session = require("express-session");
+const MongoStore = require("connect-mongo");
+const passport = require("passport");
 const cors = require("cors");
 const dbConfig = require("./app/config/db.config");
 
 const app = express();
-const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('./swagger.json');
-
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 var corsOptions = {
   origin: "http://localhost:8081",
@@ -34,6 +33,7 @@ db.mongoose
   })
   .then(() => {
     console.log("Successfully connect to MongoDB.");
+    
     initial();//Comment to Skip Dummy Data Insertion
   })
   .catch((err) => {
@@ -41,6 +41,20 @@ db.mongoose
     process.exit();
   });
 
+app.use(session({
+  store: MongoStore.create({ mongoUrl: `mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}` }),
+  secret: process.env.SessionSecretKey,
+  resave: false,
+  saveUninitialized: true,
+  cookie: {expires:1000 * 60 * 60 * 24 * 365 * 100},
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+  
 // simple route
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to aisthetic" });
@@ -50,9 +64,10 @@ app.get("/", (req, res) => {
 require("./app/routes/auth.routes")(app);
 require("./app/routes/user.routes")(app);
 require("./app/routes/superadmin.routes")(app);
-
+require("./app/routes/googleAuth.routes")(app);
+require("./app/routes/facebookAuth.routes")(app);
 // set port, listen for requests
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });

@@ -2,38 +2,39 @@
   "openapi": "3.0.3",
   "info": {
     "title": "rbacAuth",
-    "description": "Description",
+    "description": "Role Based Authentication",
     "version": "0.0.1"
   },
   "paths": {
     "/api/auth/signup": {
-        "post": {
-          "description": "User Signup",
-          "responses": {
-            "200": {
-              "description": "Signup of Users",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "username": {
-                          "type": "string"
-                        },
-                        "email": {
-                          "type": "string"
-                        },
-                        "password": {
-                          "type": "string"
-                        }
+      "post": {
+        "tags": ["Authentication"],
+        "description": "User Signup",
+        "summary": "User Signup",
+        "responses": {
+          "200": {
+            "description": "Signup of Users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "username": {
+                        "type": "string"
                       },
-                      "example": {
-                        "username":"jishnu",
-                        "email":"jishnu@gmail.com",
-                        "password":"123456"
+                      "email": {
+                        "type": "string"
+                      },
+                      "password": {
+                        "type": "string"
                       }
+                    },
+                    "example": {
+                      "username": "jishnu",
+                      "email": "jishnu@gmail.com",
+                      "password": "123456"
                     }
                   }
                 }
@@ -42,5 +43,72 @@
           }
         }
       }
+    },
+    "/api/auth/signin": {
+      "post": {
+        "description": "User Signin",
+        "tags": ["Authentication"],
+        "responses": {
+          "200": {
+            "description": "Signin of Users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "username": {
+                        "type": "string"
+                      },
+                      "password": {
+                        "type": "string"
+                      }
+                    },
+                    "example": {
+                      "email": "jishnu@gmail.com",
+                      "password": "123456"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/signin": {
+      "post": {
+        "description": "Super Admin User Signin",
+        "tags": ["SuperAdmin Authentication"],
+        "responses": {
+          "200": {
+            "description": "Signin of Admin",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "username": {
+                        "type": "string"
+                      },
+                      "password": {
+                        "type": "string"
+                      }
+                    },
+                    "example": {
+                      "username": "jishnu",
+                      "password": "123456"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }
