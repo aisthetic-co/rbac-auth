@@ -14,7 +14,6 @@ module.exports = function(app) {
   app.post("/api/admin/addRole", [authJwt.verifyToken,authJwt.checkSuperAdminAccess], controller.addRole);
   app.post("/api/admin/addRoleToUser", [authJwt.verifyToken,authJwt.checkSuperAdminAccess], controller.addRoleToUser);
   app.post("/api/admin/addResource", [authJwt.verifyToken,authJwt.checkSuperAdminAccess], controller.addResource);
-  app.post("/api/admin/addUser", [authJwt.verifyToken,authJwt.checkSuperAdminAccess], authcontroller.signup);
   app.post("/api/admin/deleteUser", [authJwt.verifyToken,authJwt.checkSuperAdminAccess], controller.deleteUser);
   app.post("/api/admin/updateUser", [authJwt.verifyToken,authJwt.checkSuperAdminAccess], controller.updateUser);
 };
